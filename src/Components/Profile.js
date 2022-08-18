@@ -6,7 +6,6 @@ export default function Profile() {
 
     const [pastes, setPastes] = useState([]);
 
-
     auth.onAuthStateChanged(user => {
         if (user) {
             const q = query(collection(db, user.email));

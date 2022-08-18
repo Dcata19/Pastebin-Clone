@@ -34,7 +34,7 @@ export default function NavBar({ setMessage }) {
             {uid === '' && <Link to="authentication">
               <button className="me-2 btn btn-light shadow-none">Authentication</button>
             </Link>}
-            {uid !== '' && <Link to="profile">
+            {uid !== '' && <Link to="/profile">
               <button className="me-2 btn btn-secondary shadow-none">Profile</button>
             </Link>}
             {uid !== '' && <Link to="/">
