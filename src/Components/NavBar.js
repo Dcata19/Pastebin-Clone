@@ -1,7 +1,22 @@
 import { Link } from "react-router-dom";
 import SignOut from "./SignOut";
+import { auth } from "../firebase.js";
+import { useEffect, useState } from "react";
 
-export default function NavBar({ auth, setMessage, setUserUID, userUID }) {
+export default function NavBar({ setMessage }) {
+
+  const [uid, setUid] = useState('');
+
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        setUid('1')
+      } else {
+        setUid('');
+      }
+    })
+  }, [uid])
+
 
   return (
     <>
@@ -16,14 +31,14 @@ export default function NavBar({ auth, setMessage, setUserUID, userUID }) {
             </li>
           </ul>
           <div>
-            {userUID === '' && <Link to="authentication">
+            {uid === '' && <Link to="authentication">
               <button className="me-2 btn btn-light shadow-none">Authentication</button>
             </Link>}
-            {userUID !== '' && <Link to="profile">
+            {uid !== '' && <Link to="profile">
               <button className="me-2 btn btn-secondary shadow-none">Profile</button>
             </Link>}
-            {userUID !== '' && <Link to="/">
-              <SignOut auth={auth} setMessage={setMessage} setUserUID={setUserUID} />
+            {uid !== '' && <Link to="/">
+              <SignOut setMessage={setMessage} />
             </Link>}
           </div>
         </div>

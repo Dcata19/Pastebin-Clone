@@ -1,23 +1,26 @@
 import { useRef } from "react"
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, } from "firebase/firestore";
+import { auth, db } from "../firebase.js";
 
-export default function Home({ db, userUID, message, setMessage }) {
+export default function Home({ message, setMessage }) {
 
     const titleRef = useRef(null);
     const pasteRef = useRef(null);
 
-    async function createPaste() {
-        try {
-            await addDoc(collection(db, userUID), {
-                title: titleRef.current.value,
-                paste: pasteRef.current.value,
-            });
-            setMessage('The paste has been created!');
-            titleRef.current.value = '';
-            pasteRef.current.value = '';
-        } catch (e) {
-            setMessage('You are not authenticated!');
-        }
+    function createPaste() {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                addDoc(collection(db, user.email), {
+                    title: titleRef.current.value,
+                    paste: pasteRef.current.value,
+                });
+                setMessage('The paste has been created!');
+                titleRef.current.value = '';
+                pasteRef.current.value = '';
+            } else {
+                setMessage('You are not authenticated!');
+            }
+        })
         setTimeout(() => { setMessage('') }, 2000);
     }
 

@@ -1,14 +1,13 @@
 import { signOut } from "firebase/auth";
+import { auth } from "../firebase.js";
 
-export default function SignOut({ auth, setMessage, setUserUID }) {
+export default function SignOut({ setMessage }) {
 
     function SignOutUser() {
-        localStorage.clear();
-        setUserUID('');
         signOut(auth).then(() => {
             // Sign-out successful.
             setMessage("Sign-out successful!");
-        }).catch((error) => {
+        }).catch(() => {
             // An error happened.
         });
         setTimeout(() => { setMessage('') }, 2000);

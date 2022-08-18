@@ -1,8 +1,9 @@
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase.js"
 
-export default function Authentication({ auth, message, setMessage, setUserUID }) {
+export default function Authentication({ message, setMessage }) {
 
     const email = useRef(null);
     const password = useRef(null);
@@ -29,7 +30,6 @@ export default function Authentication({ auth, message, setMessage, setUserUID }
             .catch(() => {
                 setMessage("Email or Password doesn't exists!");
             });
-        setUserUID(email.current.value);
         setTimeout(() => { setMessage('') }, 2000);
     }
 
