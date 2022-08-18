@@ -16,7 +16,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home message={message} setMessage={setMessage} />} />
           <Route path="authentication" element={<Authentication message={message} setMessage={setMessage} />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="profile" element={<Profile />} />
         </Routes>
       </div>
     </>

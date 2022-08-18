@@ -25,7 +25,7 @@ export default function Authentication({ message, setMessage }) {
         signInWithEmailAndPassword(auth, email.current.value, password.current.value)
             .then(() => {
                 // Signed in
-                navigate('/profile');
+                navigate('profile');
             })
             .catch(() => {
                 setMessage("Email or Password doesn't exists!");
