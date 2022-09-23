@@ -1,11 +1,11 @@
 import { useRef } from "react"
-import { collection, addDoc, } from "firebase/firestore";
-import { auth, db } from "../firebase.js";
+import { collection, addDoc, } from "firebase/firestore"
+import { auth, db } from "../firebase.js"
 
 export default function Home({ message, setMessage }) {
 
-    const titleRef = useRef(null);
-    const pasteRef = useRef(null);
+    const titleRef = useRef(null)
+    const pasteRef = useRef(null)
 
     function createPaste() {
         auth.onAuthStateChanged(user => {
@@ -13,15 +13,15 @@ export default function Home({ message, setMessage }) {
                 addDoc(collection(db, user.email), {
                     title: titleRef.current.value,
                     paste: pasteRef.current.value,
-                });
-                setMessage('The paste has been created!');
-                titleRef.current.value = '';
-                pasteRef.current.value = '';
+                })
+                setMessage('The paste has been created!')
+                titleRef.current.value = ''
+                pasteRef.current.value = ''
             } else {
-                setMessage('You are not authenticated!');
+                setMessage('You are not authenticated!')
             }
         })
-        setTimeout(() => { setMessage('') }, 2000);
+        setTimeout(() => { setMessage('') }, 2000)
     }
 
     return (
