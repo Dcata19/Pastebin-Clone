@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { useState } from "react";
 import { db, auth } from "../firebase.js";
@@ -32,3 +33,39 @@ export default function Profile() {
         </ul>
     )
 }
+=======
+import { collection, query, onSnapshot } from "firebase/firestore";
+import { useState } from "react";
+import { db, auth } from "../firebase.js";
+
+export default function Profile() {
+
+    const [pastes, setPastes] = useState([]);
+
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            const q = query(collection(db, user.email));
+            onSnapshot(q, (querySnapshot) => {
+                const pastes = [];
+                querySnapshot.forEach((doc) => {
+                    pastes.push(doc.data());
+                });
+                setPastes(pastes);
+            });
+        }
+    })
+
+    const list = pastes.map((paste, index) =>
+        <li className="list-group-item bg-dark text-white" key={index}>
+            <h3>{paste.title}</h3>
+            <p>{paste.paste}</p>
+        </li>
+    )
+
+    return (
+        <ul className="list-group list-group-flush">
+            {list}
+        </ul>
+    )
+}
+>>>>>>> 396306d8902c039d5363d18a5f45bf234e2ca513
